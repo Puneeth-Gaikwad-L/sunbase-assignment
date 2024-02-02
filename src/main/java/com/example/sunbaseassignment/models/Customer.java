@@ -47,6 +47,6 @@ public class Customer {
     @Column(nullable = false)
     String state;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     String phone;
 }

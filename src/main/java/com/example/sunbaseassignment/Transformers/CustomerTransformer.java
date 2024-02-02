@@ -4,9 +4,11 @@ import com.example.sunbaseassignment.Dto.Request.customerRequestDto;
 import com.example.sunbaseassignment.Dto.Responce.customerResponseDto;
 import com.example.sunbaseassignment.models.Customer;
 
-public class customerTransformer {
+public class CustomerTransformer {
 
-    public static Customer customerResponseToCustomer(customerRequestDto customerRequestDto){
+//    Transformer to convert customerRequestDto to customer object
+
+    public static Customer customerRequestDtoToCustomer(customerRequestDto customerRequestDto){
         return Customer.builder()
                 .first_name(customerRequestDto.getFirstName())
                 .last_name(customerRequestDto.getLastName())
@@ -19,7 +21,9 @@ public class customerTransformer {
                 .build();
     }
 
-    public static customerResponseDto customerToCustomerResponce(Customer customer){
+//    Transformer to convert customer object to customerResponseDto
+
+    public static customerResponseDto customerToCustomerResponseDto(Customer customer){
         return customerResponseDto.builder()
                 .Uid(customer.getUid())
                 .firstName(customer.getFirst_name())
@@ -31,6 +35,7 @@ public class customerTransformer {
                 .address(customer.getAddress())
                 .joinedOn(customer.getJoinedOn())
                 .phone(customer.getPhone())
+                .city(customer.getCity())
                 .build();
     }
 }
