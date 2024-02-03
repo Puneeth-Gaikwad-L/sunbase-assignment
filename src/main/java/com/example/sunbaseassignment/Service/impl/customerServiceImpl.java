@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class customerServiceImpl implements customerService {
         return customerResponseDto;
     }
 
-
+// this function will return a list of customerResponseDto with pagination
     @Override
     public Page<customerResponseDto> getAllCustomers(int pageNo, int rowsCount, String sortBy, String searchBy){
 
@@ -106,7 +107,7 @@ public class customerServiceImpl implements customerService {
         Pageable currentPageWithRequiredRows;
 
         if (sortBy != null) {
-//            if sort by is given
+//            if sort by value is provided
              currentPageWithRequiredRows = PageRequest.of(pageNo-1, rowsCount, Sort.by(sortBy));
         }else {
             currentPageWithRequiredRows = PageRequest.of(pageNo-1, rowsCount);
@@ -119,6 +120,8 @@ public class customerServiceImpl implements customerService {
     public customerResponseDto convertToDto(Customer customer){
         return CustomerTransformer.customerToCustomerResponseDto(customer);
     }
+
+//    function retrieve a particular with an id
     @Override
     public customerResponseDto getCustomerWithId(String email){
         Customer customer = customerRepository.findByEmail(email);
@@ -132,6 +135,8 @@ public class customerServiceImpl implements customerService {
     }
 
     @Override
+    @Transactional
+//    the function will not execute if there are any errors because of @Transactional
     public String deleteCustomer(String email){
         Customer customer = customerRepository.findByEmail(email);
         if (customer == null) {

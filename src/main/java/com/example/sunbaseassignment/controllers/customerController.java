@@ -1,16 +1,17 @@
 package com.example.sunbaseassignment.controllers;
 
-import com.example.sunbaseassignment.Auth.Service.JwtService;
 import com.example.sunbaseassignment.Dto.Request.customerRequestDto;
 import com.example.sunbaseassignment.Dto.Responce.customerResponseDto;
 import com.example.sunbaseassignment.Exceptions.customerAlreadyExists;
 import com.example.sunbaseassignment.Exceptions.customerNotFound;
+import com.example.sunbaseassignment.Security.JwtHelperClass;
 import com.example.sunbaseassignment.Service.customerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +20,18 @@ import java.util.List;
 @RequestMapping("/customer")
 public class customerController {
 
-    @Autowired
-    customerService customerService;
 
     @Autowired
-    JwtService jwtService;
+    UserDetailsService userDetailsService;
+
+    @Autowired
+    AuthenticationManager manager;
+
+    @Autowired
+    JwtHelperClass helperClass;
+
+    @Autowired
+    customerService customerService;
 
     @PostMapping("/create")
     public ResponseEntity<customerResponseDto> createCustomer(@RequestBody customerRequestDto customerRequestDto){
