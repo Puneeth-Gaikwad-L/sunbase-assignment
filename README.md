@@ -34,6 +34,9 @@ Before running the backend server, ensure you have a SQL server set up with the 
 ### Additional Steps (if needed)
 - Update the database connection configuration in the `application.properties` file if your SQL server has a different configuration.
 
+![image](https://github.com/Puneeth-Gaikwad-L/sunbase-assignment/assets/130468175/68d1c4c2-f447-4766-8ae6-92e136d2fdb1)
+
+
 ### 4. Start the Backend Server
 Once you have completed the above steps:
 
