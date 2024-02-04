@@ -18,4 +18,6 @@ public interface customerService {
     customerResponseDto getCustomerWithId(String email);
 
     String deleteCustomer(String email);
+
+    String syncDatabase();
 }

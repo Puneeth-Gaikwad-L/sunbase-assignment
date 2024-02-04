@@ -1,18 +1,21 @@
 package com.example.sunbaseassignment.controllers;
 
+import com.example.sunbaseassignment.Dto.Request.TokenRequestBody;
 import com.example.sunbaseassignment.Dto.Request.customerRequestDto;
+import com.example.sunbaseassignment.Dto.Responce.ResponseFromSunBase;
 import com.example.sunbaseassignment.Dto.Responce.customerResponseDto;
 import com.example.sunbaseassignment.Exceptions.customerAlreadyExists;
 import com.example.sunbaseassignment.Exceptions.customerNotFound;
 import com.example.sunbaseassignment.Security.JwtHelperClass;
+import com.example.sunbaseassignment.Service.ApiService;
 import com.example.sunbaseassignment.Service.customerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -80,6 +83,27 @@ public class customerController {
         }catch (customerNotFound e){
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/syncDB")
+    public ResponseEntity<String> syncDatabase(){
+        String result = customerService.syncDatabase();
+        return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
+    }
+
+
+    ApiService apiService = new ApiService();
+
+    public static final String loginurl = "https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp";
+
+    public static final String customersApi = "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=get_customer_list";
+    @GetMapping("/getToken")
+    public List<ResponseFromSunBase> getToken(){
+        String requestBody = "{ \"login_id\": \"test@sunbasedata.com\", \"password\": \"Test@123\" }";
+        String token = apiService.callApi(loginurl, requestBody);
+        String acessToken = token.substring(19, token.length()-3);
+        List<ResponseFromSunBase> customers = apiService.getCustomers(acessToken, customersApi);
+        return customers;
     }
 
 

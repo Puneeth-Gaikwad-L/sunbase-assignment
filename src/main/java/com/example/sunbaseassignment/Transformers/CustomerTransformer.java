@@ -10,8 +10,8 @@ public class CustomerTransformer {
 
     public static Customer customerRequestDtoToCustomer(customerRequestDto customerRequestDto){
         return Customer.builder()
-                .first_name(customerRequestDto.getFirstName())
-                .last_name(customerRequestDto.getLastName())
+                .firstName(customerRequestDto.getFirstName())
+                .lastName(customerRequestDto.getLastName())
                 .email(customerRequestDto.getEmail())
                 .phone(customerRequestDto.getPhone())
                 .city(customerRequestDto.getCity())
@@ -26,8 +26,8 @@ public class CustomerTransformer {
     public static customerResponseDto customerToCustomerResponseDto(Customer customer){
         return customerResponseDto.builder()
                 .Uid(customer.getUid())
-                .firstName(customer.getFirst_name())
-                .lastName(customer.getLast_name())
+                .firstName(customer.getFirstName())
+                .lastName(customer.getLastName())
                 .email(customer.getEmail())
                 .phone(customer.getPhone())
                 .state(customer.getState())

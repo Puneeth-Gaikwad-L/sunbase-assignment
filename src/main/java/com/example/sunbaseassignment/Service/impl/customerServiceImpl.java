@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,10 +68,10 @@ public class customerServiceImpl implements customerService {
 //        alternatively we can make the findByEmail return Optional<Customer> and use the .updateFields
 //        method to update the fields that are not null
         if (customerRequestDto.getFirstName() != null){
-            existingCustomer.setFirst_name(customerRequestDto.getFirstName());
+            existingCustomer.setFirstName(customerRequestDto.getFirstName());
         }
         if (customerRequestDto.getLastName() != null){
-            existingCustomer.setLast_name(customerRequestDto.getLastName());
+            existingCustomer.setLastName(customerRequestDto.getLastName());
         }
         if (customerRequestDto.getStreet() != null){
             existingCustomer.setStreet(customerRequestDto.getStreet());
@@ -145,5 +146,12 @@ public class customerServiceImpl implements customerService {
         customerRepository.deleteByEmail(email);
 
         return "account deleted";
+    }
+    @Override
+    public String syncDatabase(){
+        String uri = "https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp";
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(uri, String.class);
+        return result;
     }
 }

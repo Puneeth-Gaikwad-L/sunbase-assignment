@@ -31,10 +31,10 @@ public class Customer {
     Date joinedOn;
 
     @Column(nullable = false)
-    String first_name;
+    String firstName;
 
     @Column(nullable = false)
-    String last_name;
+    String lastName;
 
     @Column(nullable = false)
     String street;
