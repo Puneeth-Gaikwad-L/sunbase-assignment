@@ -17,6 +17,9 @@ Clone this repository to your local machine using the following HTTPS link:
 git clone https://github.com/Puneeth-Gaikwad-L/sunbase-assignment.git
 ```
 
+![image](https://github.com/Puneeth-Gaikwad-L/sunbase-assignment/assets/130468175/2f813946-9974-4681-8fd3-932ec5674dea)
+
+
 ### 2. Open in IntelliJ
 Open IntelliJ IDEA and follow these steps to clone the project:
 
