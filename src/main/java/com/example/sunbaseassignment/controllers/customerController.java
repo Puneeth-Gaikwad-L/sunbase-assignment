@@ -9,6 +9,7 @@ import com.example.sunbaseassignment.Exceptions.customerNotFound;
 import com.example.sunbaseassignment.Security.JwtHelperClass;
 import com.example.sunbaseassignment.Service.ApiService;
 import com.example.sunbaseassignment.Service.customerService;
+import com.example.sunbaseassignment.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.*;
@@ -94,16 +95,9 @@ public class customerController {
 
 
     ApiService apiService = new ApiService();
-
-    public static final String loginurl = "https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp";
-
-    public static final String customersApi = "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=get_customer_list";
     @GetMapping("/syncDB")
-    public List<ResponseFromSunBase> getToken(){
-        String requestBody = "{ \"login_id\": \"test@sunbasedata.com\", \"password\": \"Test@123\" }";
-        String token = apiService.callApi(loginurl, requestBody);
-        String acessToken = token.substring(19, token.length()-3);
-        List<ResponseFromSunBase> customers = apiService.getCustomers(acessToken, customersApi);
+    public Object[] getToken(){
+        Object[] customers = apiService.getToken();
         return customers;
     }
 

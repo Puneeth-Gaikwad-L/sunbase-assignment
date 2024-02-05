@@ -167,11 +167,4 @@ public class customerServiceImpl implements customerService {
 
         return "account deleted";
     }
-    @Override
-    public String syncDatabase(){
-        String uri = "https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp";
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(uri, String.class);
-        return result;
-    }
 }

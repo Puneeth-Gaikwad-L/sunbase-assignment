@@ -21,5 +21,4 @@ public interface customerService {
 
     String deleteCustomer(String email);
 
-    String syncDatabase();
 }
