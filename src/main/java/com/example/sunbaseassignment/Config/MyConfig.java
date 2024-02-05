@@ -48,17 +48,19 @@ class MyConfig {
                         .allowCredentials(true)
                         .maxAge(3600);
 
-//                registry.addMapping("/auth/**")
-//                        .allowedOrigins("https://puneeth-gaikwad-l.github.io")
-//                        .allowedMethods("POST", "GET", "PUT", "DELETE")
-//                        .allowCredentials(true)
-//                        .maxAge(3600);
-//
-//                registry.addMapping("/customer/**")
-//                        .allowedOrigins("https://puneeth-gaikwad-l.github.io")
-//                        .allowedMethods("POST", "GET", "PUT", "DELETE")
-//                        .allowCredentials(true)
-//                        .maxAge(3600);
+//                comment the below code if vscode live server is being used
+
+                registry.addMapping("/auth/**")
+                        .allowedOrigins("https://puneeth-gaikwad-l.github.io")
+                        .allowedMethods("POST", "GET", "PUT", "DELETE")
+                        .allowCredentials(true)
+                        .maxAge(3600);
+
+                registry.addMapping("/customer/**")
+                        .allowedOrigins("https://puneeth-gaikwad-l.github.io")
+                        .allowedMethods("POST", "GET", "PUT", "DELETE")
+                        .allowCredentials(true)
+                        .maxAge(3600);
             }
         };
     }
