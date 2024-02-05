@@ -64,6 +64,13 @@ public class customerController {
 
     }
 
+    @GetMapping("/searchBy")
+    public ResponseEntity<List<customerResponseDto>> searchByCol(@RequestParam String searchBy,@RequestParam String searchQuery){
+        List<customerResponseDto> result = customerService.searchByCol(searchBy, searchQuery);
+        return new ResponseEntity<>(result, HttpStatus.FOUND);
+    }
+
+
     @GetMapping("/get/{email}")
     public ResponseEntity<customerResponseDto> getCustomerWithId(@PathVariable String email){
 
@@ -85,19 +92,13 @@ public class customerController {
         }
     }
 
-    @GetMapping("/syncDB")
-    public ResponseEntity<String> syncDatabase(){
-        String result = customerService.syncDatabase();
-        return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
-    }
-
 
     ApiService apiService = new ApiService();
 
     public static final String loginurl = "https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp";
 
     public static final String customersApi = "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=get_customer_list";
-    @GetMapping("/getToken")
+    @GetMapping("/syncDB")
     public List<ResponseFromSunBase> getToken(){
         String requestBody = "{ \"login_id\": \"test@sunbasedata.com\", \"password\": \"Test@123\" }";
         String token = apiService.callApi(loginurl, requestBody);

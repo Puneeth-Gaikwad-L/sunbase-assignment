@@ -15,6 +15,8 @@ public interface customerService {
 
     Page<customerResponseDto> getAllCustomers(int pageNo, int rowsCount, String sortBy, String searchBy);
 
+    List<customerResponseDto> searchByCol(String searchBy, String searchQuery);
+
     customerResponseDto getCustomerWithId(String email);
 
     String deleteCustomer(String email);

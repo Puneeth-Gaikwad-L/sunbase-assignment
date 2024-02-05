@@ -1,8 +1,6 @@
 package com.example.sunbaseassignment.Service;
 
-import com.example.sunbaseassignment.Dto.Request.SunbaseToken;
 import com.example.sunbaseassignment.Dto.Responce.ResponseFromSunBase;
-import com.example.sunbaseassignment.models.Customer;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,7 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.yaml.snakeyaml.tokens.Token;
 
 import java.util.List;
 

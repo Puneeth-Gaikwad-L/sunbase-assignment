@@ -1,6 +1,5 @@
 package com.example.sunbaseassignment.Dto.Responce;
 
-import lombok.Data;
 
 
 public class ResponseFromSunBase {

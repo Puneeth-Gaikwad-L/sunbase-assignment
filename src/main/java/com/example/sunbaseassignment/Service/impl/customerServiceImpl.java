@@ -118,6 +118,26 @@ public class customerServiceImpl implements customerService {
         return customersPage.map(this::convertToDto);
     }
 
+    @Override
+    public List<customerResponseDto> searchByCol(String searchBy, String searchQuery) {
+        List<Customer> searchRes = new ArrayList<>();
+        if (searchBy.equals("firstName")) {
+            searchRes = customerRepository.findByFirstNameLike(searchQuery);
+        } else if (searchBy.equals("city")) {
+            searchRes = customerRepository.findByCityLike(searchQuery);
+        } else if (searchBy.equals("phone")) {
+            searchRes = customerRepository.findByPhoneLike(searchQuery);
+        } else if (searchBy.equals("email")) {
+            searchRes = customerRepository.findByEmailLike(searchQuery);
+        }
+        List<customerResponseDto> searchList = new ArrayList<>();
+
+        for (Customer cust: searchRes) {
+            searchList.add(CustomerTransformer.customerToCustomerResponseDto(cust));
+        }
+        return searchList;
+    }
+
     public customerResponseDto convertToDto(Customer customer){
         return CustomerTransformer.customerToCustomerResponseDto(customer);
     }
