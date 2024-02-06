@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface customerService {
 
-    customerResponseDto createCustomer(customerRequestDto customerRequestDto);
+    customerResponseDto createCustomer(customerRequestDto customerRequestDto,  boolean SyncDb);
 
     customerResponseDto updateCustomer(String email, customerRequestDto customerRequestDto);
 

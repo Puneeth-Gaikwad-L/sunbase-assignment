@@ -38,9 +38,9 @@ public class customerController {
     customerService customerService;
 
     @PostMapping("/create")
-    public ResponseEntity<customerResponseDto> createCustomer(@RequestBody customerRequestDto customerRequestDto){
+    public ResponseEntity<customerResponseDto> createCustomer(@RequestBody customerRequestDto customerRequestDto, @RequestParam boolean SyncDb){
         try{
-            customerResponseDto customerResponseDto = customerService.createCustomer(customerRequestDto);
+            customerResponseDto customerResponseDto = customerService.createCustomer(customerRequestDto, SyncDb);
             return new ResponseEntity<>(customerResponseDto, HttpStatus.CREATED);
         }catch (customerAlreadyExists e){
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);

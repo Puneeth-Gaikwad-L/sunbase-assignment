@@ -30,30 +30,37 @@ public class customerServiceImpl implements customerService {
     customerRepository customerRepository;
 
     @Override
-     public customerResponseDto createCustomer(customerRequestDto customerRequestDto){
+     public customerResponseDto createCustomer(customerRequestDto customerRequestDto,  boolean SyncDb){
 
 //      getting the customer with the given email for validation and to reduce redundancy
         Customer customer = customerRepository.findByEmail(customerRequestDto.getEmail());
 
-        if (customer != null) {
-//          id customer is not empty then there is an existing customer with same email already hence throw an error
-            throw new customerAlreadyExists("found an existing account with the same email");
-        }
+        customerResponseDto customerResponse = new customerResponseDto();
 
-//      adding the data inside DTO to customer abject
-        customer = CustomerTransformer.customerRequestDtoToCustomer(customerRequestDto);
+//        when we are syncing the db if the customer exits then update instead of throwing an error
+        if (SyncDb && customer != null){
+//            if a customer is already existing and if we are performing sync then just update that customer
+            customerResponse = updateCustomer(customerRequestDto.getEmail(), customerRequestDto);
+        } else if (customer != null) {
+//          else if customer is not empty then there is an existing customer with same email already hence throw an error
+            throw new customerAlreadyExists("found an existing account with the same email");
+        } else {
+ //      adding the data inside DTO to customer abject
+            customer = CustomerTransformer.customerRequestDtoToCustomer(customerRequestDto);
 
 //        assigning a unique ID
-        customer.setUid(String.valueOf(UUID.randomUUID()));
+            customer.setUid(String.valueOf(UUID.randomUUID()));
 
-        Customer savedCustomer = customerRepository.save(customer);      // save the customer obj to db
+            Customer savedCustomer = customerRepository.save(customer);      // save the customer obj to db
 
 //        building the response DTO
-        customerResponseDto customerResponseDto =CustomerTransformer.customerToCustomerResponseDto(savedCustomer);
-        customerResponseDto.setMessage("user Account created successfully");
+            customerResponse =CustomerTransformer.customerToCustomerResponseDto(savedCustomer);
+            customerResponse.setMessage("user Account created successfully");
 
-        return customerResponseDto;
+        }
+        return customerResponse;
     }
+
     @Override
     public customerResponseDto updateCustomer(String emailId, customerRequestDto customerRequestDto){
 //        validating the customer
