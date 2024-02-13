@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -39,6 +40,9 @@ public class ApiService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + token);
+
+//        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
+//                .queryParam("cmd", "get_customer_list");
 
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
