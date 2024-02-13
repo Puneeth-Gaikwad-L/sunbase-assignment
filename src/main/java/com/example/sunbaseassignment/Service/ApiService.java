@@ -1,8 +1,5 @@
 package com.example.sunbaseassignment.Service;
 
-import com.example.sunbaseassignment.Dto.Responce.ResponseFromSunBase;
-import com.example.sunbaseassignment.models.Customer;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.Dictionary;
 import java.util.List;
 
 @Service
@@ -28,12 +23,11 @@ public class ApiService {
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 apiUrl,
-                HttpMethod.POST,  // Change this based on your API's HTTP method
+                HttpMethod.POST,
                 requestEntity,
                 String.class
         );
 
-        // You can handle the response as needed
         String responseBody = responseEntity.getBody();
 
         return responseBody;
